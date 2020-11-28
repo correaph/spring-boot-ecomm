@@ -16,15 +16,14 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaService service;
-	
+
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-
-		System.out.println("id = " + id);
 		Categoria obj = service.buscar(id);
-		System.out.println(obj);
+		if (obj == null) {
+			return ResponseEntity.status(404).body(new StandardError("Categoria não encontrada. Id:" + id));
+		}
 		return ResponseEntity.ok().body(obj);
-		
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.phmr.springbootecomm.domain.Categoria;
 import br.com.phmr.springbootecomm.repositories.CategoriaRepository;
 
+
 @Service
 public class CategoriaService {
 	
