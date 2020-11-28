@@ -8,36 +8,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Produto implements Serializable {
+public class Estado implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -74253660979107373L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private Double preco;
+	private String siglaUF;
+	@OneToMany(mappedBy = "estado")
+	private List<Cidade> cidades = new ArrayList<Cidade>();
 
-	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name = "PROD_CATEG", joinColumns = @JoinColumn(name = "prod_id"), inverseJoinColumns = @JoinColumn(name = "categ_id"))
-	private List<Categoria> categorias = new ArrayList<>();
-
-	public Produto() {
-	}
-
-	public Produto(Integer id, String nome, Double preco) {
+	public Estado(Integer id, String nome, String siglaUF) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preco = preco;
+		this.siglaUF = siglaUF;
+	}
+	
+	public List<Cidade> getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
+	}
+
+	public Estado() {
+	}
+
+	public Estado(Integer id, String nome) {
+		super();
+		this.id = id;
+		nome = this.nome;
+	}
+
+	@Override
+	public String toString() {
+		return "Estado [id=" + id + ", nome=" + nome + ", siglaUF=" + siglaUF + ", cidades=" + cidades + "]";
 	}
 
 	public Integer getId() {
@@ -53,28 +65,15 @@ public class Produto implements Serializable {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		nome = this.nome;
+	}
+	
+	public String getSiglaUF() {
+		return siglaUF;
 	}
 
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
-	}
-
-	@Override
-	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + "]";
+	public void setSiglaUF(String siglaUF) {
+		this.siglaUF = siglaUF;
 	}
 
 	@Override
@@ -93,7 +92,7 @@ public class Produto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
