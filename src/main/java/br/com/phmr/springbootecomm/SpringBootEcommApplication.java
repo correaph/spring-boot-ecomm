@@ -1,6 +1,7 @@
 package br.com.phmr.springbootecomm;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.phmr.springbootecomm.domain.Categoria;
 import br.com.phmr.springbootecomm.domain.Cidade;
+import br.com.phmr.springbootecomm.domain.Cliente;
+import br.com.phmr.springbootecomm.domain.Endereco;
 import br.com.phmr.springbootecomm.domain.Estado;
 import br.com.phmr.springbootecomm.domain.Produto;
+import br.com.phmr.springbootecomm.domain.enums.TipoCliente;
 import br.com.phmr.springbootecomm.repositories.CategoriaRepository;
 import br.com.phmr.springbootecomm.repositories.CidadeRepository;
+import br.com.phmr.springbootecomm.repositories.ClienteRepository;
+import br.com.phmr.springbootecomm.repositories.EnderecoRepository;
 import br.com.phmr.springbootecomm.repositories.EstadoRepository;
 import br.com.phmr.springbootecomm.repositories.ProdutoRepository;
 
@@ -27,6 +33,10 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 	EstadoRepository estadoRepository;
 	@Autowired
 	CidadeRepository cidadeRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootEcommApplication.class, args);
@@ -74,6 +84,30 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 				}
 			}
 		}
+
+		Cliente cli1 = new Cliente(null, "João Ninguém", "joaoninguem@teste.com.br", "12345678901",
+				TipoCliente.PESSOA_FISICA);
+		
+		Cliente cli2 = new Cliente(null, "JN Consultoria Java", "jn@cons.com.br", "99922244455511",
+				TipoCliente.PESSOA_JURIDICA);
+
+		cli1.getTelefones().addAll(Arrays.asList("56123456768", "167852345876"));
+		cli2.getTelefones().addAll(Arrays.asList("78989945678", "869812345876"));
+
+		Optional<Cidade> cid = cidadeRepository.findById(1);
+		Endereco end1 = new Endereco(null, "Rua das Estrelas", "1254", "Apto 701", "Cidade Jardim", "38412751", cli1,
+				cid.orElse(null));
+		
+		cid = cidadeRepository.findById(2);
+		Endereco end2 = new Endereco(null, "Rua da Alegria", "13", "Casa", "Andrômeda", "76543443", cli1,
+				cid.orElse(null));
+		
+		cid = cidadeRepository.findById(3);
+		Endereco end3 = new Endereco(null, "Av da Evolução", "7113", "Casa", "Magalhães", "87699943", cli2,
+				cid.orElse(null));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(end1,end2,end3));
 
 	}
 

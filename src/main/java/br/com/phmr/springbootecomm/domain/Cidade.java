@@ -32,7 +32,7 @@ public class Cidade implements Serializable {
 		this.nome = nome;
 		this.estado = estado;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado + "]";
