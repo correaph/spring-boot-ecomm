@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import br.com.phmr.springbootecomm.domain.Categoria;
 import br.com.phmr.springbootecomm.repositories.CategoriaRepository;
 
-
 @Service
 public class CategoriaService {
-	
+
 	@Autowired
 	private CategoriaRepository repo;
-	
+
 	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElse(null);
+	}
+
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 
 }
