@@ -31,11 +31,6 @@ public class Pedido implements Serializable {
 	private Date instante;
 	
 	@JsonManagedReference
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
-	
-	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
@@ -46,6 +41,11 @@ public class Pedido implements Serializable {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
+	
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Pedido() {
 	}
@@ -104,15 +104,7 @@ public class Pedido implements Serializable {
 	public void setInstante(Date instante) {
 		this.instante = instante;
 	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
+	
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -127,6 +119,14 @@ public class Pedido implements Serializable {
 
 	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

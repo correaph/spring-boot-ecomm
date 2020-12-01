@@ -20,8 +20,10 @@ public class Estado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String nome;
 	private String siglaUF;
+	
 	@JsonBackReference
 	@OneToMany(mappedBy = "estado")
 	private List<Cidade> cidades = new ArrayList<Cidade>();
