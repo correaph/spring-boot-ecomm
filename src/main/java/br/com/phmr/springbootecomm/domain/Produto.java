@@ -2,7 +2,9 @@ package br.com.phmr.springbootecomm.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,11 +28,12 @@ public class Produto implements Serializable {
 	private Integer id;
 	private String nome;
 	private Double preco;
-
 	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "PROD_CATEG", joinColumns = @JoinColumn(name = "prod_id"), inverseJoinColumns = @JoinColumn(name = "categ_id"))
 	private List<Categoria> categorias = new ArrayList<>();
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Produto() {
 	}
@@ -38,6 +43,14 @@ public class Produto implements Serializable {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido item : itens) {
+			lista.add(item.getPedido());
+		}
+		return lista;
 	}
 
 	public Integer getId() {

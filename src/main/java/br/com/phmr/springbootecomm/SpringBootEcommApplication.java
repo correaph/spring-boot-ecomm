@@ -14,6 +14,7 @@ import br.com.phmr.springbootecomm.domain.Cidade;
 import br.com.phmr.springbootecomm.domain.Cliente;
 import br.com.phmr.springbootecomm.domain.Endereco;
 import br.com.phmr.springbootecomm.domain.Estado;
+import br.com.phmr.springbootecomm.domain.ItemPedido;
 import br.com.phmr.springbootecomm.domain.Pagamento;
 import br.com.phmr.springbootecomm.domain.PagamentoComBoleto;
 import br.com.phmr.springbootecomm.domain.PagamentoComCartao;
@@ -26,6 +27,7 @@ import br.com.phmr.springbootecomm.repositories.CidadeRepository;
 import br.com.phmr.springbootecomm.repositories.ClienteRepository;
 import br.com.phmr.springbootecomm.repositories.EnderecoRepository;
 import br.com.phmr.springbootecomm.repositories.EstadoRepository;
+import br.com.phmr.springbootecomm.repositories.ItemPedidoRepository;
 import br.com.phmr.springbootecomm.repositories.PagamentoRepository;
 import br.com.phmr.springbootecomm.repositories.PedidoRepository;
 import br.com.phmr.springbootecomm.repositories.ProdutoRepository;
@@ -49,6 +51,8 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 	PedidoRepository pedidoRepository;
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootEcommApplication.class, args);
@@ -130,9 +134,15 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 		ped1.setPagamento(pag1);
 		Pagamento pag2 = new PagamentoComCartao(null, EstadoPagamento.PARCELADO, ped2, 7);
 		ped2.setPagamento(pag2);
-		
+
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
+
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 1.7, 7, 157.71);
+		ItemPedido ip2 = new ItemPedido(ped2, p2, 8.50, 145, 90.70);
+		ItemPedido ip3 = new ItemPedido(ped2, p3, 18.87, 13, 107.90);
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 
