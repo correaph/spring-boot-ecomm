@@ -19,7 +19,7 @@ public class ClienteResource {
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Cliente obj = service.buscar(id);
+		Cliente obj = service.find(id);
 		if (obj == null) {
 			return ResponseEntity.status(404).body(new StandardError("Cliente não encontrado. Id:" + id));
 		}
