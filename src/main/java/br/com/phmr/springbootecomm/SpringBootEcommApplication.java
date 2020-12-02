@@ -71,7 +71,7 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 		var p4 = new Produto(null, "Prod. Teste (Prod4)", 27.40);
 
 		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat3));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));

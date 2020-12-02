@@ -27,5 +27,10 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		return repo.save(obj);
 	}
+	
+	public void delete(Integer id) {
+		repo.deleteById(id);
+		return; 
+	}
 
 }

@@ -3,6 +3,7 @@ package br.com.phmr.springbootecomm.resources;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +44,18 @@ public class CategoriaResource {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		find(id);
+		try {
+			service.delete(id);
+			return ResponseEntity.noContent().build();
+		} catch (DataIntegrityViolationException ex) {
+			return ResponseEntity.badRequest().body(
+					new StandardError("Categoria não pode ser excluída pois possui produtos associados."));
+		}
 	}
 
 }
