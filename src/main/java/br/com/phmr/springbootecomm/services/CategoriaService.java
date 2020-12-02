@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.phmr.springbootecomm.domain.Categoria;
@@ -41,6 +44,13 @@ public class CategoriaService {
 		List<Categoria> list = repo.findAll();
 		List<CategoriaDTO> listDTO = new ArrayList<>();
 		listDTO = list.stream().map(item -> new CategoriaDTO(item)).collect(Collectors.toList());
+		return listDTO;
+	}
+
+	public Page<CategoriaDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Page<Categoria> list = repo.findAll(pageRequest);
+		Page<CategoriaDTO> listDTO = list.map(item -> new CategoriaDTO(item));
 		return listDTO;
 	}
 

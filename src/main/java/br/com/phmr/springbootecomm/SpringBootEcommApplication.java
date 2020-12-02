@@ -64,6 +64,13 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 		var cat1 = new Categoria(null, "Informática");
 		var cat2 = new Categoria(null, "Escritório");
 		var cat3 = new Categoria(null, "Teste (Cat3)");
+		var cat4 = new Categoria(null, "Teste (Cat4)");
+		var cat5 = new Categoria(null, "Teste (Cat5)");
+		var cat6 = new Categoria(null, "Teste (Cat6)");
+		var cat7 = new Categoria(null, "Teste (Cat7)");
+		var cat8 = new Categoria(null, "Teste (Cat8)");
+		var cat9 = new Categoria(null, "Teste (Cat9)");
+		var cat10 = new Categoria(null, "Teste (Cat10)");
 
 		var p1 = new Produto(null, "Computador", 2500.00);
 		var p2 = new Produto(null, "Impressora", 740.98);
@@ -74,7 +81,7 @@ public class SpringBootEcommApplication implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat3));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
 
 		String[][] nomesUF = { { "Minas Gerais", "MG", "Uberlândia;Belo Horizonte;Lagamar" },
