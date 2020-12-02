@@ -1,6 +1,7 @@
 package br.com.phmr.springbootecomm.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.phmr.springbootecomm.domain.Categoria;
+import br.com.phmr.springbootecomm.dto.CategoriaDTO;
 import br.com.phmr.springbootecomm.services.CategoriaService;
 
 @RestController
@@ -56,6 +58,12 @@ public class CategoriaResource {
 			return ResponseEntity.badRequest().body(
 					new StandardError("Categoria não pode ser excluída pois possui produtos associados."));
 		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		List<CategoriaDTO> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
 }

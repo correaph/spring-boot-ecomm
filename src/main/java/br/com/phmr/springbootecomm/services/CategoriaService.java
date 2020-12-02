@@ -1,11 +1,15 @@
 package br.com.phmr.springbootecomm.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.phmr.springbootecomm.domain.Categoria;
+import br.com.phmr.springbootecomm.dto.CategoriaDTO;
 import br.com.phmr.springbootecomm.repositories.CategoriaRepository;
 
 @Service
@@ -23,14 +27,21 @@ public class CategoriaService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	
+
 	public Categoria update(Categoria obj) {
 		return repo.save(obj);
 	}
-	
+
 	public void delete(Integer id) {
 		repo.deleteById(id);
-		return; 
+		return;
+	}
+
+	public List<CategoriaDTO> findAll() {
+		List<Categoria> list = repo.findAll();
+		List<CategoriaDTO> listDTO = new ArrayList<>();
+		listDTO = list.stream().map(item -> new CategoriaDTO(item)).collect(Collectors.toList());
+		return listDTO;
 	}
 
 }
