@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.phmr.springbootecomm.domain.Categoria;
 import br.com.phmr.springbootecomm.dto.CategoriaDTO;
+import br.com.phmr.springbootecomm.resources.exceptions.StandardError;
 import br.com.phmr.springbootecomm.services.CategoriaService;
 
 @RestController

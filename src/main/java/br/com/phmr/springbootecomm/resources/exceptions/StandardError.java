@@ -1,4 +1,4 @@
-package br.com.phmr.springbootecomm.resources;
+package br.com.phmr.springbootecomm.resources.exceptions;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

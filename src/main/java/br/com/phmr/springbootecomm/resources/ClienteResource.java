@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.phmr.springbootecomm.domain.Cliente;
+import br.com.phmr.springbootecomm.resources.exceptions.StandardError;
 import br.com.phmr.springbootecomm.services.ClienteService;
 
 @RestController
